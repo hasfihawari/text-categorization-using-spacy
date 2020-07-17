@@ -1,4 +1,4 @@
-import os, sys
+import os
 import spacy
 import pandas as pd
 from spacy.util import minibatch

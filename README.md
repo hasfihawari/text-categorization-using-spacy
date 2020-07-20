@@ -9,7 +9,7 @@ how to use it
 ```python
 python training.py
 ```
-after that, to predict the model:
+after that, to predict the text:
 ```python
 python predict.py
 ```

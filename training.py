@@ -31,7 +31,7 @@ def training(train_data):
     
     textcat = nlp.create_pipe('textcat')
     
-    other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
+    other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'textat']
     with nlp.disable_pipes(*other_pipes):
 
         nlp.add_pipe(textcat)

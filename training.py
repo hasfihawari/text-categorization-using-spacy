@@ -31,23 +31,26 @@ def training(train_data):
     
     textcat = nlp.create_pipe('textcat')
     
-    nlp.add_pipe(textcat)
-    
-    textcat.add_label('normal')
-    textcat.add_label('fraud')
-    textcat.add_label('promo')
-    
-    optimizer = nlp.begin_training()
+    other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
+    with nlp.disable_pipes(*other_pipes):
 
-    losses = {}
-    for epoch in range(10):
-        batches = minibatch(train_data, size=5)
-        for batch in batches:
-            texts, labels = zip(*batch)
-            nlp.update(texts, labels, sgd=optimizer, losses=losses)
-        print('epoch : {}'.format(epoch))
+        nlp.add_pipe(textcat)
         
-    nlp.to_disk(path_model)
+        textcat.add_label('normal')
+        textcat.add_label('fraud')
+        textcat.add_label('promo')
+        
+        optimizer = nlp.begin_training()
+
+        losses = {}
+        for epoch in range(10):
+            batches = minibatch(train_data, size=5)
+            for batch in batches:
+                texts, labels = zip(*batch)
+                nlp.update(texts, labels, sgd=optimizer, losses=losses)
+            print('epoch : {}'.format(epoch))
+            
+        nlp.to_disk(path_model)
     
 if __name__ == '__main__':
     data = load_data()

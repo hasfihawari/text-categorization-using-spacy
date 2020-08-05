@@ -9,7 +9,8 @@ def load_model():
     nlp = spacy.load(path_model)
     return nlp
 
-def predict(model, text):
+def predict(text):
+    model = load_model()
     result = model(text)
     result = result.cats
     result = max(result.items(), key=operator.itemgetter(1))[0] 
@@ -18,7 +19,6 @@ def predict(model, text):
     return final_result
 
 if __name__ == '__main__':
-    model = load_model()
     text = 'selamat anda mendapatkan hadiah uang tunai 100 juta'
     
-    print(predict(model, text))
+    print(predict(text))

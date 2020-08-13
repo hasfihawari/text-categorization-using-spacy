@@ -93,4 +93,6 @@ def train(train_data, evaluate_data):
     
 if __name__ == '__main__':
     data = load_data()
-    train(data[:1000], data[1000:])
+    data_train = int(len(data) * 0.8)
+    data_evaluate = len(data) - data_train
+    train(data_train, data_evaluate)

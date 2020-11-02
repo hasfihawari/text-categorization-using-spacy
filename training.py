@@ -95,4 +95,4 @@ if __name__ == '__main__':
     data = load_data()
     data_train = int(len(data) * 0.8)
     data_evaluate = len(data) - data_train
-    train(data_train, data_evaluate)
+    train(data[:data_train], data[data_evaluate:])
